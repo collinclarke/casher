@@ -115,7 +115,7 @@ cshr.ajax = options => {
   return new Promise(function (resolve, reject) {
     const defaultObj = {
       type: "GET",
-      url: "https://www.google.com",
+      url: "",
       contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
       success: () => {},
       error: () => {},
