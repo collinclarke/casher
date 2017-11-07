@@ -92,6 +92,17 @@ cshr.extend = (...objects) => {
   return result;
 };
 
+cshr.isEmpty = (arg) => {
+  switch (arg.constructor) {
+    case String:
+      return (!!arg);
+    case Object:
+      return (Object.keys(arg).length === 0);
+    case Array:
+      return (arg.length === 0);
+  }
+};
+
 cshr.ajax = options => {
 
   const defaultObj = {
@@ -105,7 +116,8 @@ cshr.ajax = options => {
 
   options = cshr.extend(defaultObj, options);
 
-  if (options.method.toUpperCase() === "GET") {
+  if (options.type.toUpperCase() === "GET" && (!cshr.isEmpty(options.data))) {
+    debugger
     options.url += `?${toQueryString(options.data)}`;
   }
 
@@ -118,6 +130,7 @@ cshr.ajax = options => {
       options.success(xhr.response);
       console.log("success!");
     } else {
+      debugger
       options.error(xhr.response);
       console.log("failure!");
     }
@@ -149,6 +162,7 @@ registerDocReadyCallback = func => {
 toQueryString = obj => {
   let result = "";
   for (const prop in obj) {
+    debugger
     if (Object.prototype.hasOwnProperty.call(obj, prop)) {
       result += `${prop}=${obj[prop]}&`;
     }
