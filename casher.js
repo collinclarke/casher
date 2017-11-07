@@ -71,7 +71,7 @@ const DOMNodeCollection = __webpack_require__(1);
 
 const toLoad = [];
 
-window.$l = function(arg){
+window.cshr = function(arg){
   if (typeof arg === "string") {
     return new DOMNodeCollection(findElements(arg));
   } else if (arg instanceof HTMLElement) {
@@ -81,7 +81,7 @@ window.$l = function(arg){
   }
 };
 
-window.$l.extend = function(...objects){
+window.cshr.extend = function(...objects){
   const result = {};
   objects.forEach( hash => {
     Object.keys(hash).forEach( key => result[key] = hash[key] );
@@ -89,7 +89,7 @@ window.$l.extend = function(...objects){
   return result;
 };
 
-window.$l.ajax = function(options) {
+window.cshr.ajax = function(options) {
   const defaultObj = {
     type: "GET",
     url: "https://www.google.com",
@@ -101,7 +101,7 @@ window.$l.ajax = function(options) {
       console.log(err);
     },
   };
-  options = $l.extend(defaultObj, options);
+  options = cshr.extend(defaultObj, options);
   const xhr = new XMLHttpRequest();
   xhr.open(options.type, options.url);
   xhr.onload = function () {
@@ -128,7 +128,7 @@ function findElements(selector) {
   return arr;
 }
 
-$l(() => {
+cshr(() => {
   console.log("window loaded!");
 });
 
@@ -172,23 +172,21 @@ class DOMNodeCollection {
     if (value === undefined) {
       return this.nodeCollection[0].getAttribute(key);
     } else {
-      this.nodeCollection.forEach( (node) => {
+      this.nodeCollection.forEach( node => {
         node.setAttribute(key, value);
       });
     }
   }
 
   addClass(className) {
-    this.nodeCollection.forEach( (node) => {
-      let list = node.classList;
-      list.add(className);
+    this.nodeCollection.forEach( node => {
+      node.classList.add(className);
     });
   }
 
   removeClass(className) {
-    this.nodeCollection.forEach( (node) => {
-      let list = node.classList;
-      list.remove(className);
+    this.nodeCollection.forEach( node => {
+      node.classList.remove(className);
     });
   }
 
@@ -229,7 +227,7 @@ class DOMNodeCollection {
     this.nodeCollection = [];
   }
 
-  on (eventType, callback) {
+  on(eventType, callback) {
     this.nodeCollection.forEach( (node) => {
       node.addEventListener(eventType, callback);
       node.cb = callback;
