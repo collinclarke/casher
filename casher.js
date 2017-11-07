@@ -122,9 +122,14 @@ cshr.ajax = function(options) {
     error(err){
       console.log(err);
     },
+    data: {}
   };
 
   options = cshr.extend(defaultObj, options);
+
+  if (options.type.toUpperCase() === "GET" && (!cshr.isEmpty(options.data))) {
+    options.url += `?${toQueryString(options.data)}`;
+  }
 
   const xhr = new XMLHttpRequest();
 
