@@ -72,6 +72,11 @@ const DOMNodeCollection = __webpack_require__(1);
 const toLoad = [];
 let docIsReady = false;
 
+document.addEventListener('DOMContentLoaded', () => {
+  docIsReady = true;
+  toLoad.forEach(func => func());
+});
+
 window.cshr = arg => {
   switch (typeof arg) {
     case "string":
@@ -85,21 +90,16 @@ window.cshr = arg => {
 };
 
 cshr.isEmpty = (arg) => {
+  if (arg === undefined) {
+    return undefined;
+  }
   switch (arg.constructor) {
     case String:
-      return (!!arg);
+      return (!arg);
     case Object:
       return (Object.keys(arg).length === 0);
     case Array:
       return (arg.length === 0);
-  }
-};
-
-registerDocReadyCallback = func => {
-  if (!docIsReady) {
-    toLoad.push(func);
-  } else {
-    func();
   }
 };
 
@@ -111,7 +111,7 @@ cshr.extend = function(...objects){
   return result;
 };
 
-cshr.ajax = function(options) {
+cshr.ajax = options => {
   const defaultObj = {
     type: "GET",
     url: "https://www.google.com",
@@ -149,6 +149,14 @@ cshr.ajax = function(options) {
 
 };
 
+registerDocReadyCallback = func => {
+  if (!docIsReady) {
+    toLoad.push(func);
+  } else {
+    func();
+  }
+};
+
 toQueryString = obj => {
   let result = "";
   for (const prop in obj) {
@@ -158,11 +166,6 @@ toQueryString = obj => {
   }
   return result.substring(0, result.length - 1);
 };
-
-document.addEventListener('DOMContentLoaded', () => {
-  docIsReady = true;
-  toLoad.forEach(func => func());
-});
 
 findElements = selector => {
   let nodeList = document.querySelectorAll(selector);
