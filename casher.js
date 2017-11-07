@@ -144,6 +144,16 @@ cshr.ajax = function(options) {
 
 };
 
+toQueryString = obj => {
+  let result = "";
+  for (const prop in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+      result += `${prop}=${obj[prop]}&`;
+    }
+  }
+  return result.substring(0, result.length - 1);
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   docIsReady = true;
   toLoad.forEach(func => func());
