@@ -70,18 +70,29 @@
 const DOMNodeCollection = __webpack_require__(1);
 
 const toLoad = [];
+let docIsReady = false;
 
-window.cshr = function(arg){
-  if (typeof arg === "string") {
-    return new DOMNodeCollection(findElements(arg));
-  } else if (arg instanceof HTMLElement) {
-    return new DOMNodeCollection([arg]);
-  } else if (typeof arg === "function") {
-    toLoad.push(arg);
+window.cshr = arg => {
+  switch (typeof arg) {
+    case "string":
+      return new DOMNodeCollection(findElements(arg));
+    case "object":
+      if (arg instanceof HTMLElement) return new DOMNodeCollection([arg]);
+      break;
+    case "function":
+      registerDocReadyCallback(arg);
   }
 };
 
-window.cshr.extend = function(...objects){
+registerDocReadyCallback = func => {
+  if (!docIsReady) {
+    toLoad.push(func);
+  } else {
+    func();
+  }
+};
+
+cshr.extend = function(...objects){
   const result = {};
   objects.forEach( hash => {
     Object.keys(hash).forEach( key => result[key] = hash[key] );
@@ -89,7 +100,7 @@ window.cshr.extend = function(...objects){
   return result;
 };
 
-window.cshr.ajax = function(options) {
+cshr.ajax = function(options) {
   const defaultObj = {
     type: "GET",
     url: "https://www.google.com",
@@ -101,9 +112,13 @@ window.cshr.ajax = function(options) {
       console.log(err);
     },
   };
+
   options = cshr.extend(defaultObj, options);
+
   const xhr = new XMLHttpRequest();
+
   xhr.open(options.type, options.url);
+
   xhr.onload = function () {
     if (xhr.status < 300) {
       options.success(xhr.response);
@@ -113,23 +128,24 @@ window.cshr.ajax = function(options) {
       console.log("failure!");
     }
   };
+
   xhr.send(options);
+
 };
 
-window.onload = () => {
-  toLoad.forEach((func) => {
-    func();
-  });
-};
+document.addEventListener('DOMContentLoaded', () => {
+  docIsReady = true;
+  toLoad.forEach(func => func());
+});
 
-function findElements(selector) {
+findElements = selector => {
   let nodeList = document.querySelectorAll(selector);
   let arr = Array.from(nodeList);
   return arr;
-}
+};
 
 cshr(() => {
-  console.log("window loaded!");
+  console.log("dom content loaded!");
 });
 
 
