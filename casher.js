@@ -171,16 +171,13 @@ findElements = selector => {
   return arr;
 };
 
-cshr(() => {
-  console.log("dom content loaded!");
-});
-
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports) {
 
 class DOMNodeCollection {
+  
   constructor(arr) {
     this.nodeCollection = arr;
   }
@@ -234,33 +231,32 @@ class DOMNodeCollection {
   }
 
   children() {
-    let result = [];
+    let children = [];
     this.nodeCollection.forEach( (node) => {
       const child = Array.from(node.children);
-      result = result.concat(child);
+      children = children.concat(child);
     });
-    return new DOMNodeCollection(result);
+    return new DOMNodeCollection(children);
   }
 
   parent() {
-    let result = [];
+    let parents = [];
     this.nodeCollection.forEach( (node) => {
       const parent = node.parentNode;
-      if (!result.includes(parent)) {
-        result = result.concat(parent);
+      if (!parents.includes(parent)) {
+        parents = parents.concat(parent);
       }
     });
-    return new DOMNodeCollection(result);
+    return new DOMNodeCollection(parents);
   }
 
   find(selector) {
-    // const children = this.children();
-    let arr = [];
+    let elements = [];
     this.nodeCollection.forEach((node) => {
       let matches = node.querySelectorAll(selector);
-      arr = arr.concat(Array.from(matches));
+      elements = elements.concat(Array.from(matches));
     });
-    return new DOMNodeCollection(arr);
+    return new DOMNodeCollection(elements);
   }
 
   remove() {
@@ -282,7 +278,6 @@ class DOMNodeCollection {
       node.removeEventListener(type, node.cb);
     });
   }
-
 
 }
 
