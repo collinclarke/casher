@@ -8,8 +8,8 @@ A JavaScript DOM Manipulation Library
 #### DOM Manipulation
 
 
-The DOMNodeCollection class methods cover basics of manipulating
-both individual DOM Elements and DOM Element Collections.
+The DOM Node Collection class methods cover basics of manipulating
+both individual DOM Nodes and DOM Node Collections.
 
 Passing a selector to Casher will create a new DOM Node Collection from
 matching nodes.
@@ -18,7 +18,7 @@ matching nodes.
 
 ```JavaScript
 
-cshr('.my-class') // Returns a collection of all Elements with a
+cshr('.my-class') // Returns a collection of all nodes with a
                   // class of 'my-class'
 
 const element = cshr('#my-id') // element is node with id "my-id"
