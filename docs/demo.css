@@ -1,6 +1,7 @@
 body {
   font-family: arial, sans-serif;
   overflow: hidden;
+  position: relative;
 }
 
 header {
@@ -12,7 +13,6 @@ header {
 }
 
 main {
-
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -33,7 +33,6 @@ button {
   width: 300rem;
   background: rgba(255, 255, 255, 0);
   cursor: pointer;
-  padding: 3rem;
 }
 
 #next {
@@ -48,8 +47,27 @@ button {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  position: relative;
   height: 80vh;
+}
+@media (max-width: 900px) {
+  #frame {
+    max-width: 100%;
+    justify-content: stretch;
+    flex-flow: column;
+  }
+  button {
+    position: absolute;
+    width: 40vw;
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+  }
+  #next {
+    right: 0;
+  }
+  #back {
+    left: 0;
+  }
 }
 
 #loading {
