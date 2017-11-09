@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
   toLoad.forEach(func => func());
 });
 
-cshr = arg => {
+window.cshr = arg => {
   switch (typeof arg) {
     case "string":
       return new DOMNodeCollection(findElements(arg));
