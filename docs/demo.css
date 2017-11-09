@@ -48,19 +48,25 @@ button {
   flex-flow: row nowrap;
   justify-content: space-between;
   height: 80vh;
+  position: relative;
 }
-@media (max-width: 900px) {
+
+@media only screen and (max-width: 900px) {
+
   #frame {
     max-width: 100%;
     justify-content: stretch;
     flex-flow: column;
+    position: static;
   }
+
   button {
     position: absolute;
     width: 40vw;
     height: 100vh;
     top: 0;
     bottom: 0;
+    color: rgba(255, 0, 0, 0);
   }
   #next {
     right: 0;
