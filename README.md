@@ -3,6 +3,10 @@
 
 A JavaScript DOM Manipulation Library
 
+### [Demo](https://collinclarke.github.io/casher/)
+
+*Sequential queries of Harvard Art Museum Object Collection*
+
 ### Features
 
 #### DOM Manipulation
