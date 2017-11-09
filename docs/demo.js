@@ -1,6 +1,5 @@
 cshr(() => {
 
-
   const back = cshr('#back');
   const next = cshr('#next');
   const img = cshr('#image');
