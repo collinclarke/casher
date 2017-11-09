@@ -103,7 +103,7 @@ cshr.isEmpty = (arg) => {
   }
 };
 
-cshr.extend = function(...objects){
+cshr.extend = (...objects) => {
   const result = {};
   objects.forEach( hash => {
     Object.keys(hash).forEach( key => result[key] = hash[key] );

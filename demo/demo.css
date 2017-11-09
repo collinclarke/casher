@@ -1,0 +1,78 @@
+body {
+  font-family: arial, sans-serif;
+  overflow: hidden;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  height: 10vh;
+  letter-spacing: .02rem;
+  font-size: 5vh;
+}
+
+main {
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  object-fit: contain;
+}
+
+button {
+  display: flex;
+  z-index: 10;
+  outline: none;
+  box-shadow: none;
+  border: 0;
+  color: black;
+  width: 300rem;
+  background: rgba(255, 255, 255, 0);
+  cursor: pointer;
+  padding: 3rem;
+}
+
+#next {
+  justify-content: flex-start;
+}
+
+#back {
+  justify-content: flex-end;
+}
+
+#frame {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  position: relative;
+  height: 80vh;
+}
+
+#loading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 5;
+}
+
+#info {
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  padding-bottom: 2vh;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.disabled:focus {
+  outline: none;
+}
