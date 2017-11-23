@@ -12,14 +12,14 @@ cshr(() => {
 
   let listing, requestJSON;
   listing = 155597;
-  const url = "https://api.harvardartmuseums.org/experimental/object/";
+  const url = "https://api.harvardartmuseums.org/object";
   const request = () => ({
-    url: url + parseInt(listing),
+    url,
+    // url: url + parseInt(listing),
     data: {
       apikey: "5396a200-c4f2-11e7-8f8e-1b14c6858050",
-      // size: 1,
-      // hasimage: 1,
-      // page: 1
+      totalpageviews: 0,
+      size: 1
     },
     contentType: "application/json"
   });
@@ -55,6 +55,7 @@ cshr(() => {
     requestJSON = request();
     cshr.ajax(requestJSON).then(response => {
       response = JSON.parse(response);
+      debugger
       img.attr("src", response.images[0].baseimageurl);
       info.empty();
       response.images[0].clarifai.outputs[0].data.concepts.forEach(concept => {
