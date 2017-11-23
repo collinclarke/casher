@@ -11,7 +11,7 @@ cshr(() => {
   window.categorySelector = categorySelector;
 
   let section, requestJSON;
-  objectID = Math.floor(Math.random() * 10000);
+  objectID = 6000 + Math.floor(Math.random() * 3000);
   section = "images";
 
   const request = () => {
@@ -53,22 +53,43 @@ cshr(() => {
     });
   });
 
+  const fetchImage = (params) => {
+    cshr.ajax(requestJSON).then(response => {
+      response = JSON.parse(response);
+      img.attr("src", response.images[0].baseimageurl);
+      info.empty();
+    })
+    .catch(reason => {
+      objectID = 6000 + Math.floor(Math.random() * 3000);
+      requestJSON = request();
+      fetchImage(requestJSON);
+    });
+  };
+
   next.on("click", (e) => {
     objectID += 1;
     loading.removeClass("hidden");
     requestJSON = request();
-    cshr.ajax(requestJSON).then(response => {
-      response = JSON.parse(response);
-      // debugger
-      img.attr("src", response.images[0].baseimageurl);
-      info.empty();
-      // response.images[0].clarifai.outputs[0].data.concepts.forEach(concept => {
-      //   info.append(concept.name);
-      // });
-    })
-    .catch(reason => {
-      console.log('Handle rejected promise ('+reason+') here');
-    });
+    fetchImage(requestJSON);
   });
+  
+  // next.on("click", (e) => {
+  //   objectID += 1;
+  //   loading.removeClass("hidden");
+  //   requestJSON = request();
+  //   cshr.ajax(requestJSON).then(response => {
+  //     response = JSON.parse(response);
+  //     // debugger
+  //     img.attr("src", response.images[0].baseimageurl);
+  //     info.empty();
+  //     // response.images[0].clarifai.outputs[0].data.concepts.forEach(concept => {
+  //     //   info.append(concept.name);
+  //     // });
+  //   })
+  //   .catch(reason => {
+  //     objectID = 6000 + Math.floor(Math.random() * 3000);
+  //     requestJSON = request();
+  //   });
+  // });
 
 });
