@@ -4,22 +4,28 @@
     <meta charset="utf-8">
     <title>Objects</title>
     <meta name="description" content="Casher demo using Harvard Art Museums API"/>
-    <script src="./casher.js"></script>
+    <script src="../casher.js"></script>
     <script src="./demo.js"></script>
     <link rel="stylesheet" href="./demo.css">
   </head>
   <body>
     <main class="window">
-      <header>Objects</header>
+      <div class="nav" id="back"></div>
+      <select id="category-selector" name="category">
+        <option value="object" selected="selected">objects</option>
+        <option value="second">something else</option>
+
+      </select>
       <section id="frame">
         <div id="loading" class="hidden"></div>
-        <button type="button" id="back"><</button>
+
         <img
           id="image"
           src="https://ids.lib.harvard.edu/ids/iiif/18483392/full/full/0/native.jpg"
           alt="Changing Image"/>
-        <button type="button" id="next">></button>
+
       </section>
+      <div class="nav" id="next"></div>
       <section id="info">
         <p class="info-blurb">Info goes here</p>
       </section>

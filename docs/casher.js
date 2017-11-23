@@ -218,6 +218,12 @@ class DOMNodeCollection {
     }
   }
 
+  selected() {
+    const selector = this.at(0);
+    const selectedOption = selector.options[this.selectedIndex];
+    return selectedOption.text;
+  }
+
   addClass(className) {
     this.nodeCollection.forEach( node => {
       node.classList.add(className);

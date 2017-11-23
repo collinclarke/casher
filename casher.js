@@ -177,7 +177,7 @@ findElements = selector => {
 /***/ (function(module, exports) {
 
 class DOMNodeCollection {
-  
+
   constructor(arr) {
     this.nodeCollection = arr;
   }
@@ -216,6 +216,12 @@ class DOMNodeCollection {
         node.setAttribute(key, value);
       });
     }
+  }
+
+  selected() {
+    const selector = this.at(0);
+    const selectedOption = selector.options[selector.selectedIndex];
+    return selectedOption.value;
   }
 
   addClass(className) {
