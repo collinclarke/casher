@@ -10,11 +10,11 @@ cshr(() => {
 
   window.categorySelector = categorySelector;
 
-
-  const listing = "155597"
-  const url = "https://api.harvardartmuseums.org/experimental/object/" + listing;
-  const request = {
-    url,
+  let listing, requestJSON;
+  listing = 155597;
+  const url = "https://api.harvardartmuseums.org/experimental/object/";
+  const request = () => ({
+    url: url + parseInt(listing),
     data: {
       apikey: "5396a200-c4f2-11e7-8f8e-1b14c6858050",
       // size: 1,
@@ -22,24 +22,26 @@ cshr(() => {
       // page: 1
     },
     contentType: "application/json"
-  };
+  });
 
   img.on("load", (e) => {
     loading.addClass("hidden");
   });
 
-
   back.on("click", (e) => {
-    // if (request.data.page > 1) {
-    //   request.data.page -= 1;
-    // }
+    if (listing > 1) {
+      listing -= 1;
+    }
     loading.removeClass("hidden");
-    cshr.ajax(request).then(response => {
+
+    cshr.ajax(requestJSON).then(response => {
+      requestJSON = request();
       response = JSON.parse(response);
       img.attr("src", response.images[0].baseimageurl);
       info.empty();
       response.images[0].clarifai.outputs[0].data.concepts.forEach(concept => {
-        info.append(concept.name);
+        const conceptText = concept.name;
+        info.append(cshr(`<li>${conceptText}</li>`));
       });
     })
     .catch(reason => {
@@ -48,13 +50,13 @@ cshr(() => {
   });
 
   next.on("click", (e) => {
-    request.data.page += 1;
+    listing += 1;
     loading.removeClass("hidden");
-    cshr.ajax(request).then(response => {
+    requestJSON = request();
+    cshr.ajax(requestJSON).then(response => {
       response = JSON.parse(response);
       img.attr("src", response.images[0].baseimageurl);
       info.empty();
-      debugger
       response.images[0].clarifai.outputs[0].data.concepts.forEach(concept => {
         info.append(concept.name);
       });
