@@ -220,8 +220,8 @@ class DOMNodeCollection {
 
   selected() {
     const selector = this.at(0);
-    const selectedOption = selector.options[this.selectedIndex];
-    return selectedOption.text;
+    const selectedOption = selector.options[selector.selectedIndex];
+    return selectedOption.value;
   }
 
   addClass(className) {
