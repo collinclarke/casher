@@ -10,12 +10,21 @@
   </head>
   <body>
     <main class="window">
-      <div class="nav" id="back"></div>
-      <select id="category-selector" name="category">
-        <option value="object" selected="selected">objects</option>
-        <option value="second">something else</option>
 
-      </select>
+      <div id="collection">
+        <header id="pinned-header">pinned</header>
+        <ul id="pinned-items">
+
+        </ul>
+      </div>
+
+      <div class="nav" id="back"></div>
+
+      <header id="main-header">
+        <div id="title">Images</div>
+        <br>
+        <div id="subtitle">Randomly served images from Harvard Art Museum collection</div>
+      </header>
       <section id="frame">
         <div id="loading" class="hidden"></div>
 
@@ -27,7 +36,7 @@
       </section>
       <div class="nav" id="next"></div>
       <section id="info">
-        <p class="info-blurb">Info goes here</p>
+        <p class="info-blurb"></p>
       </section>
     </main>
   </body>

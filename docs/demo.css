@@ -1,15 +1,7 @@
 body {
-  font-family: arial, sans-serif;
+  font-family: helvetica, arial, sans-serif;
   overflow: hidden;
   position: relative;
-}
-
-header {
-  display: flex;
-  align-items: center;
-  height: 10vh;
-  letter-spacing: .02rem;
-  font-size: 5vh;
 }
 
 main {
@@ -21,6 +13,7 @@ main {
 
 img {
   object-fit: contain;
+  max-height:90%;
 }
 
 .nav {
@@ -28,6 +21,26 @@ img {
   width: 50vw;
   position: absolute;
   cursor: pointer;
+}
+
+#title {
+  font-size: 2rem;
+  margin-bottom: -0.5rem;
+}
+
+#collection {
+  position: absolute;
+}
+
+#main-header {
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  height: 10vh;
+  letter-spacing: .02rem;
+  font-size: 1rem;
 }
 
 #next {
@@ -40,8 +53,9 @@ img {
 
 #frame {
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
   height: 80vh;
   position: relative;
 }
@@ -53,22 +67,9 @@ img {
     justify-content: stretch;
     flex-flow: column;
     position: static;
+    height: 80vh;
   }
 
-  button {
-    position: absolute;
-    width: 40vw;
-    height: 100vh;
-    top: 0;
-    bottom: 0;
-    color: rgba(255, 0, 0, 0);
-  }
-  #next {
-    right: 0;
-  }
-  #back {
-    left: 0;
-  }
 }
 
 #loading {
