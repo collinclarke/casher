@@ -83,7 +83,6 @@ const createHTML = (tagName) => {
 };
 
 window.cshr = arg => {
-
   switch (typeof arg) {
     case "string":
       const pattern = /\b/;

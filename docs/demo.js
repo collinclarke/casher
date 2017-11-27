@@ -76,6 +76,7 @@ cshr(() => {
   const fetchImageById = (objectId) => {
     requestJSON = request(objectId);
     fetchImage(requestJSON);
+    currentObjId = parseInt(objectId);
   };
 
   random.on("click", (e) => {
