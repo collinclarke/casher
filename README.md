@@ -78,11 +78,41 @@ collection.attr("key", 5) // adds attribute key with value 5 to each
 cshr('selector') // creates collection of elements
                  // with matching selector
 
+cshr('<tag>') // creates new HTMLElement with tag name
+
 cshr(HTMLElement) // creates DOM Node collection from element
 
 cshr(function()) // queues function to execute when DOM content
                  // is loaded
 
+```
+
+###### *snippet*
+
+
+```JavaScript
+
+window.cshr = arg => {
+  switch (typeof arg) {
+    case "string":
+      const pattern = /\b/;
+      const contentArr = arg.split(pattern);
+      if (contentArr[0] === "<") {
+        return createHTML(contentArr[1]);
+      }
+      return new DOMNodeCollection(findElements(arg));
+    case "object":
+      if (arg instanceof HTMLElement) return new DOMNodeCollection([arg]);
+      break;
+    case "function":
+      registerDocReadyCallback(arg);
+  }
+};
+
+const createHTML = (tagName) => {
+  const element = document.createElement(tagName);
+  return new DOMNodeCollection([element]);
+};
 ```
 
 ##### CASHER methods
@@ -96,5 +126,48 @@ cshr.isEmpty(arg) // boolean indicating whether arg is empty
                   // cshr.isEmpty({}) === true
 
 cshr.extend(...objects) // merges objects
+
+```
+
+
+##### *ajax snippet*
+
+```JavaScript
+
+cshr.ajax = options => {
+  return new Promise(function (resolve, reject) {
+    const defaultObj = {
+      type: "GET",
+      url: "",
+      contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+      success: () => {},
+      error: () => {},
+      data: {}
+    };
+    const xhr = new XMLHttpRequest();
+    options = cshr.extend(defaultObj, options);
+    if (options.type.toUpperCase() === "GET" && (!cshr.isEmpty(options.data))) {
+      options.url += `?${toQueryString(options.data)}`;
+    }
+    xhr.open(options.type, options.url);
+    xhr.onload = function () {
+      if (this.status >= 200 && this.status < 300) {
+        resolve(xhr.response);
+      } else {
+        reject({
+          status: this.status,
+          statusText: xhr.statusText
+        });
+      }
+    };
+    xhr.onerror = function () {
+      reject({
+        status: this.status,
+        statusText: xhr.statusText
+      });
+    };
+    xhr.send(options);
+  });
+};
 
 ```
