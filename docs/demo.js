@@ -7,17 +7,20 @@ cshr(() => {
   const loading = cshr('#loading');
   const info = cshr('#info');
   const categorySelector = cshr('#category-selector');
-
+  const pinnedList = cshr('#pinned-items');
+  const pin = cshr('#pin-button');
+  const random = cshr('#random-button');
   window.categorySelector = categorySelector;
 
-  let section, requestJSON;
-  objectID = 6000 + Math.floor(Math.random() * 3000);
-  section = "images";
+  let requestJSON;
+  let currentObjId = 8731;
+  let attempt = 0;
 
-  const request = () => {
-    console.log(objectID);
+  const request = (objectId) => {
+    console.log(attempt);
+    console.log(objectId);
     return ({
-      url: "https://api.harvardartmuseums.org/object/" + objectID,
+      url: "https://api.harvardartmuseums.org/object/" + objectId,
       data: {
         apikey: "5396a200-c4f2-11e7-8f8e-1b14c6858050",
       },
@@ -29,12 +32,27 @@ cshr(() => {
     loading.addClass("hidden");
   });
 
-  back.on("click", (e) => {
-    if (objectID > 1) {
-      objectID -= 1;
-    }
+  pin.on("click", (e) => {
+    const pinNode = cshr("<li>");
+    const pinImg = cshr("<img>");
+    const imgUrl = img.attr("src");
+    pinImg.attr("src", imgUrl);
+    pinNode.append(pinImg);
+    pinNode.addClass("pinned-image");
+    pinnedList.append(pinNode);
+    pinNode.at(0).scrollIntoView({block: 'end', behavior: 'smooth'});
+  });
+
+  const randObjId = () => {
+    return 5000 + Math.floor(Math.random() * 60000);
+  };
+
+  random.on("click", (e) => {
+    e.stopPropagation();
+    objectId = randObjId();
+    currentObjId = objectId;
     loading.removeClass("hidden");
-    requestJSON = request();
+    requestJSON = request(objectId);
     fetchImage(requestJSON);
   });
 
@@ -42,19 +60,34 @@ cshr(() => {
     cshr.ajax(requestJSON).then(response => {
       response = JSON.parse(response);
       img.attr("src", response.images[0].baseimageurl);
-      info.empty();
+      attempt = 0;
     })
     .catch(reason => {
-      objectID = 6000 + Math.floor(Math.random() * 3000);
-      requestJSON = request();
+      attempt += 1;
+      if (attempt > 25) {
+        currentObjId = randObjId();
+        attempt = 0;
+      } else {
+        currentObjId += 5;
+      }
+      requestJSON = request(currentObjId);
       fetchImage(requestJSON);
     });
   };
 
-  next.on("click", (e) => {
-    objectID += 1;
+  back.on("click", (e) => {
+    if (currentObjId > 1) {
+      currentObjId -= 1;
+    }
     loading.removeClass("hidden");
-    requestJSON = request();
+    requestJSON = request(currentObjId);
+    fetchImage(requestJSON);
+  });
+
+  next.on("click", (e) => {
+    currentObjId += 1;
+    loading.removeClass("hidden");
+    requestJSON = request(currentObjId);
     fetchImage(requestJSON);
   });
 

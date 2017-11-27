@@ -4,30 +4,25 @@
     <meta charset="utf-8">
     <title>Objects</title>
     <meta name="description" content="Casher demo using Harvard Art Museums API"/>
-    <script src="./casher.js"></script>
+    <script src="../casher.js"></script>
     <script src="./demo.js"></script>
     <link rel="stylesheet" href="./demo.css">
   </head>
   <body>
+
+    <div id="random-button">random</div>
+    <div id="pin-button">+</div>
     <main class="window">
-
-      <div id="collection">
-        <header id="pinned-header">pinned</header>
-        <ul id="pinned-items">
-
-        </ul>
-      </div>
-
       <div class="nav" id="back"></div>
 
       <header id="main-header">
         <div id="title">Images</div>
         <br>
-        <div id="subtitle">Randomly served images from Harvard Art Museum collection</div>
+        <div id="subtitle">from Harvard Art Museum collection</div>
       </header>
+
       <section id="frame">
         <div id="loading" class="hidden"></div>
-
         <img
           id="image"
           src="https://ids.lib.harvard.edu/ids/iiif/18483392/full/full/0/native.jpg"
@@ -35,8 +30,13 @@
 
       </section>
       <div class="nav" id="next"></div>
+      <!-- <header id="pinned-header">pinned</header> -->
       <section id="info">
-        <p class="info-blurb"></p>
+        <ul id="pinned-items">
+          <li class="pinned-image"><img
+            src="https://ids.lib.harvard.edu/ids/iiif/18483392/full/full/0/native.jpg"
+            alt="Changing Image"/></li>
+        </ul>
       </section>
     </main>
   </body>

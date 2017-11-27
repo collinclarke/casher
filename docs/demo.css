@@ -1,7 +1,9 @@
 body {
   font-family: helvetica, arial, sans-serif;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 main {
@@ -14,6 +16,7 @@ main {
 img {
   object-fit: contain;
   max-height:90%;
+  position: relative;
 }
 
 .nav {
@@ -24,8 +27,16 @@ img {
 }
 
 #title {
-  font-size: 2rem;
-  margin-bottom: -0.5rem;
+  color: gray;
+  letter-spacing: .25rem;
+  text-transform: uppercase;
+  font-size: 1rem;
+  margin-top: 3rem;
+}
+
+#subtitle {
+  font-family: monospace;
+  font-size: .8rem;
 }
 
 #collection {
@@ -49,6 +60,7 @@ img {
 
 #back {
   align-self: flex-start;
+  z-index: 500;
 }
 
 #frame {
@@ -56,8 +68,93 @@ img {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  box-sizing: border-box;
+  height: 90vh;
   position: relative;
+}
+
+
+#loading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  filter: blur(10px);
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 5;
+}
+
+#pin-button {
+  position: absolute;
+  color: red;
+  top: -3vh;
+  right: 10vw;
+  font-size: 20vw;
+  cursor: pointer;
+  z-index: 600;
+}
+
+#random-button {
+  position: absolute;
+  color: red;
+  text-align: left;
+  top: 33vh;
+  left: -15rem;
+  transform: rotate(90deg);
+  font-size: 25vh;
+  cursor: pointer;
+  z-index: 600;
+}
+
+#pinned-header {
+  font-size: 3rem;
+  transform: rotate(90deg);
+  position: absolute;
+  right: 10rem;
+  top: 3.7rem;
+}
+
+#pinned-items {
+  list-style: none;
+  display: flex;
+  flex-flow: column nowrap;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+}
+
+#pinned-items li {
+  margin: 0;
+  padding: 0;
+}
+
+#info {
+  width: 9.3rem;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 7.45rem;
+  height: 80vh;
+  display: flex;
+  z-index: 800;
+}
+
+.pinned-image {
+
+}
+
+.pinned-image img {
+  object-fit: contain;
+  width: 8rem;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.disabled:focus {
+  outline: none;
 }
 
 @media only screen and (max-width: 900px) {
@@ -69,30 +166,4 @@ img {
     position: static;
     height: 80vh;
   }
-
-}
-
-#loading {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.8);
-  z-index: 5;
-}
-
-#info {
-  height: 8vh;
-  display: flex;
-  align-items: center;
-  padding-bottom: 2vh;
-}
-
-.hidden {
-  visibility: hidden;
-}
-
-.disabled:focus {
-  outline: none;
 }
