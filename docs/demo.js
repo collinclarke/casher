@@ -73,8 +73,6 @@ cshr(() => {
     fetchImage(requestJSON);
   };
 
-
-
   random.on("click", (e) => {
     e.stopPropagation();
     objectId = randObjId();
@@ -84,27 +82,25 @@ cshr(() => {
     fetchImage(requestJSON);
   });
 
-  const fetchImage = (params, first) => {
-    cshr.ajax(requestJSON).then(response => {
-      response = JSON.parse(response);
-      img.attr("src", response.images[0].baseimageurl);
-      if (first) {
-        starterPin.attr("src", response.images[0].baseimageurl);
-        starterPin.attr("key", currentObjId);
-      }
-      attempt = 0;
-    })
-    .catch(reason => {
-      attempt += 1;
-      if (attempt > 25) {
-        currentObjId = randObjId();
+  const fetchImage = (params) => {
+    return (
+      cshr.ajax(requestJSON).then(response => {
+        response = JSON.parse(response);
+        img.attr("src", response.images[0].baseimageurl);
         attempt = 0;
-      } else {
-        currentObjId += 5;
-      }
-      requestJSON = request(currentObjId);
-      fetchImage(requestJSON);
-    });
+      })
+      .catch(reason => {
+        attempt += 1;
+        if (attempt > 25) {
+          currentObjId = randObjId();
+          attempt = 0;
+        } else {
+          currentObjId += 5;
+        }
+        requestJSON = request(currentObjId);
+        fetchImage(requestJSON);
+      })
+    );
   };
 
   back.on("click", (e) => {
@@ -125,7 +121,10 @@ cshr(() => {
 
   loading.removeClass("hidden");
   requestJSON = request(currentObjId);
-  fetchImage(requestJSON, true);
+  fetchImage(requestJSON).then(() => {
+    const pinNode = generatePinItem();
+    pinnedList.append(pinNode);
+  });
 
 
 });

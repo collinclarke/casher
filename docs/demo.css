@@ -83,19 +83,19 @@ img {
   position: fixed;
   align-self: center;
   font-size: 2rem;
-  /*background: white;*/
+  background: white;
+  border: 5px solid red;
   color: red;
   z-index: 3000;
   padding: 3rem 0;
   padding-left: 10rem;
-  width: 80vw;
-  margin-left: 5vw;
+  width:100vw;
 }
 
 #close-button {
   position: absolute;
   color: red;
-  right: 18rem;
+  right: 10rem;
   top: 2.4rem;
   font-size: 3rem;
   transform: rotate(45deg);
