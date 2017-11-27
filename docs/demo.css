@@ -5,6 +5,10 @@ body {
   padding: 0;
 }
 
+a {
+  color: inherit;
+}
+
 main {
   display: flex;
   position: relative;
@@ -32,6 +36,7 @@ img {
   text-transform: uppercase;
   font-size: 1rem;
   margin-top: 3rem;
+  cursor: help;
 }
 
 #subtitle {
@@ -42,6 +47,7 @@ img {
 #collection {
   position: absolute;
 }
+
 
 #main-header {
   display: flex;
@@ -73,6 +79,28 @@ img {
   position: relative;
 }
 
+#info {
+  position: fixed;
+  align-self: center;
+  font-size: 2rem;
+  /*background: white;*/
+  color: red;
+  z-index: 3000;
+  padding: 3rem 0;
+  padding-left: 10rem;
+  width: 80vw;
+  margin-left: 5vw;
+}
+
+#close-button {
+  position: absolute;
+  color: red;
+  right: 18rem;
+  top: 2.4rem;
+  font-size: 3rem;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
 
 #loading {
   position: absolute;
@@ -124,7 +152,7 @@ img {
   padding: 0;
 }
 
-#info {
+#pins {
   width: 9.3rem;
   overflow: hidden;
   position: absolute;
