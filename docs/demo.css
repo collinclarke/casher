@@ -27,7 +27,7 @@ img {
   height: 80vh;
   width: 50vw;
   position: absolute;
-  cursor: crosshair;
+  cursor: ew-resize;
 }
 
 #title {
