@@ -77,9 +77,20 @@ document.addEventListener('DOMContentLoaded', () => {
   toLoad.forEach(func => func());
 });
 
+const createHTML = (tagName) => {
+  const element = document.createElement(tagName);
+  return new DOMNodeCollection([element]);
+};
+
 window.cshr = arg => {
+
   switch (typeof arg) {
     case "string":
+      const pattern = /\b/;
+      const contentArr = arg.split(pattern);
+      if (contentArr[0] === "<") {
+        return createHTML(contentArr[1]);
+      }
       return new DOMNodeCollection(findElements(arg));
     case "object":
       if (arg instanceof HTMLElement) return new DOMNodeCollection([arg]);
@@ -204,9 +215,14 @@ class DOMNodeCollection {
 
   append(el){
     this.nodeCollection.forEach( node => {
-      node.innerHTML += el;
+      if (el.constructor.name === 'DOMNodeCollection') {
+        node.appendChild(el.at(0));
+      } else {
+        node.appendChild(el);  
+      }
     });
   }
+
 
   attr(key, value) {
     if (value === undefined) {
