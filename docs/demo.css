@@ -1,6 +1,5 @@
 body {
   font-family: helvetica, arial, sans-serif;
-  position: relative;
   overflow: hidden;
   margin: 0;
   padding: 0;
@@ -8,6 +7,7 @@ body {
 
 main {
   display: flex;
+  position: relative;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
@@ -23,7 +23,7 @@ img {
   height: 80vh;
   width: 50vw;
   position: absolute;
-  cursor: pointer;
+  cursor: crosshair;
 }
 
 #title {
@@ -88,9 +88,9 @@ img {
 #pin-button {
   position: absolute;
   color: red;
-  top: -3vh;
-  right: 10vw;
-  font-size: 20vw;
+  top: -3rem;
+  right: 11vw;
+  font-size: 10rem;
   cursor: pointer;
   z-index: 600;
 }
@@ -100,7 +100,7 @@ img {
   color: red;
   text-align: left;
   top: 33vh;
-  left: -15rem;
+  left: -16rem;
   transform: rotate(90deg);
   font-size: 25vh;
   cursor: pointer;
@@ -124,11 +124,6 @@ img {
   padding: 0;
 }
 
-#pinned-items li {
-  margin: 0;
-  padding: 0;
-}
-
 #info {
   width: 9.3rem;
   overflow: hidden;
@@ -141,7 +136,9 @@ img {
 }
 
 .pinned-image {
-
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
 }
 
 .pinned-image img {
@@ -160,10 +157,11 @@ img {
 @media only screen and (max-width: 900px) {
 
   #frame {
-    max-width: 100%;
+    max-width: 100vw;
     justify-content: stretch;
     flex-flow: column;
     position: static;
-    height: 80vh;
+    height: 66vw;
+    margin-top: 20vh;
   }
 }

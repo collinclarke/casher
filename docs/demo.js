@@ -10,10 +10,12 @@ cshr(() => {
   const pinnedList = cshr('#pinned-items');
   const pin = cshr('#pin-button');
   const random = cshr('#random-button');
-  window.categorySelector = categorySelector;
+  const pinnedItems = cshr('.pinned-image');
+  const starterPin = cshr('#starter-pin');
+  const title = cshr('#title');
 
   let requestJSON;
-  let currentObjId = 8731;
+  let currentObjId = 52634;
   let attempt = 0;
 
   const request = (objectId) => {
@@ -39,12 +41,22 @@ cshr(() => {
     pinImg.attr("src", imgUrl);
     pinNode.append(pinImg);
     pinNode.addClass("pinned-image");
+    pinNode.attr("key", currentObjId);
+    pinNode.on("click", (e) => {
+      const id = e.currentTarget.getAttribute("key");
+      fetchImageById(id);
+    });
     pinnedList.append(pinNode);
     pinNode.at(0).scrollIntoView({block: 'end', behavior: 'smooth'});
   });
 
   const randObjId = () => {
     return 5000 + Math.floor(Math.random() * 60000);
+  };
+
+  const fetchImageById = (objectId) => {
+    requestJSON = request(objectId);
+    fetchImage(requestJSON);
   };
 
   random.on("click", (e) => {
@@ -56,10 +68,11 @@ cshr(() => {
     fetchImage(requestJSON);
   });
 
-  const fetchImage = (params) => {
+  const fetchImage = (params, first) => {
     cshr.ajax(requestJSON).then(response => {
       response = JSON.parse(response);
       img.attr("src", response.images[0].baseimageurl);
+      if (first) starterPin.attr("src", response.images[0].baseimageurl);
       attempt = 0;
     })
     .catch(reason => {
@@ -91,6 +104,9 @@ cshr(() => {
     fetchImage(requestJSON);
   });
 
+  loading.removeClass("hidden");
+  requestJSON = request(currentObjId);
+  fetchImage(requestJSON, true);
 
 
 });
