@@ -14,6 +14,7 @@ cshr(() => {
   const starterPin = cshr('#starter-pin');
   const title = cshr('#title');
   const close = cshr('#close-button');
+  const mainHeader = cshr('#main-header')
 
   let requestJSON;
   let currentObjId = 52634;
@@ -33,8 +34,12 @@ cshr(() => {
     });
   };
 
-  title.on("click", (e) => {
-    info.removeClass("hidden");
+  mainHeader.on("click", (e) => {
+    if (info.at(0).classList.value.includes("hidden")) {
+      info.removeClass("hidden");
+    } else {
+      info.addClass("hidden");
+    }
   });
 
   close.on("click", (e) => {
