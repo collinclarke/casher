@@ -7,33 +7,34 @@
     <script src="./casher.js"></script>
     <script src="./demo.js"></script>
     <link rel="stylesheet" href="./demo.css">
-    <link rel="icon" href="favicon.png" type="image/png" />
+    <link rel="icon" href="./images/favicon.png" type="image/png" />
   </head>
   <body>
-
+    <div class="nav" id="next"></div>
+    <div class="nav" id="back"></div>
     <div id="random-button">random</div>
     <div id="pin-button">+</div>
+
     <main class="window">
-      <div class="nav" id="back"></div>
       <div id="info" class="hidden">
         <div id="close-button">+</div>
         built using <a href="https://github.com/collinclarke/casher" target="_blank">casher</a>, a lightweight dom manipulation library
       </div>
       <header id="main-header">
-        <div id="title">Images</div>
+        <div id="title">CSHR</div>
         <br>
-        <div id="subtitle">from Harvard Art Museum collection</div>
+        <div id="subtitle">Images from Harvard Art Museum collection</div>
       </header>
 
       <section id="frame">
         <div id="loading" class="hidden"></div>
         <img
           id="image"
-          src=""
+          src="https://nrs.harvard.edu/urn-3:HUAM:INV003611_dynmc"
           alt="Changing Image"/>
 
       </section>
-      <div class="nav" id="next"></div>
+
       <!-- <header id="pinned-header">pinned</header> -->
       <section id="pins">
         <ul id="pinned-items">

@@ -125,11 +125,11 @@ cshr(() => {
     fetchImage(requestJSON);
   });
 
-  loading.removeClass("hidden");
-  requestJSON = request(currentObjId);
-  fetchImage(requestJSON).then(() => {
-    const pinNode = generatePinItem();
-  });
+  // loading.removeClass("hidden");
+  // requestJSON = request(currentObjId);
+  // fetchImage(requestJSON).then(() => {
+  //   const pinNode = generatePinItem();
+  // });
 
 
 });
