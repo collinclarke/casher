@@ -58,7 +58,7 @@ img {
   height: 10vh;
   letter-spacing: .02rem;
   font-size: 1rem;
-  z-index: 800;
+  z-index: 550;
     cursor: url(images/info.png), auto;
 }
 
@@ -93,18 +93,23 @@ img {
   color: red;
   z-index: 3000;
   padding: 3rem 0;
-  padding-left: 10rem;
-  width:100vw;
+  width: 100vw;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: baseline;
+}
+
+#info span {
+  margin-left: 2rem;
 }
 
 #close-button {
-  position: absolute;
   color: red;
-  right: 10rem;
-  top: 2.4rem;
   font-size: 3rem;
   transform: rotate(45deg);
   cursor: pointer;
+  z-index: 1000;
+  margin: 0rem 2rem;
 }
 
 #loading {
