@@ -10,11 +10,11 @@ cshr(() => {
   const pinnedList = cshr('#pinned-items');
   const pin = cshr('#pin-button');
   const random = cshr('#random-button');
-  const pinnedItems = cshr('.pinned-image');
   const starterPin = cshr('#starter-pin');
   const title = cshr('#title');
   const close = cshr('#close-button');
-  const mainHeader = cshr('#main-header')
+  const mainHeader = cshr('#main-header');
+  const downloadAllButton = cshr('#download-all-button')
 
   let requestJSON;
   let currentObjId = 52634;
@@ -23,8 +23,6 @@ cshr(() => {
   const idList = [];
 
   const request = (objectId) => {
-    console.log(attempt);
-    console.log(objectId);
     return ({
       url: "https://api.harvardartmuseums.org/object/" + objectId,
       data: {
@@ -51,6 +49,7 @@ cshr(() => {
   });
 
   pin.on("click", (e) => {
+    downloadAllButton.removeClass('hidden')
     const pinNode = generatePinItem();
     pinNode.at(0).scrollIntoView({block: 'end', behavior: 'smooth'});
   });
@@ -65,6 +64,7 @@ cshr(() => {
       pinNode.append(pinImg);
       pinNode.addClass("pinned-image");
       pinNode.attr("key", currentObjId);
+      pinNode.attr("title", "Return to Image")
       pinNode.on("click", (e) => {
         const id = e.currentTarget.getAttribute("key");
         fetchImageById(id);
@@ -72,6 +72,37 @@ cshr(() => {
       pinnedList.append(pinNode);
       return pinNode;
     }
+  };
+
+
+  const download = async (imgUrl) => {
+    const blob = await toBlob(imgUrl);
+    // Image urls look like this
+    // https://nrs.harvard.edu/urn-3:HUAM:LEG256357
+    const title = imgUrl.split('https://nrs.harvard.edu/')[1]
+    save(blob, title)
+  }
+
+  const toBlob = (src) => new Promise((res) => {
+    const img = document.createElement('img');
+    const c = document.createElement("canvas");
+    const ctx = c.getContext("2d");
+    img.onload = ({target}) => {
+      c.width = target.naturalWidth;
+      c.height = target.naturalHeight;
+      ctx.drawImage(target, 0, 0);
+      c.toBlob((b) => res(b), "image/jpeg", 0.75);
+    };
+    img.crossOrigin = "";
+    img.src = src;
+  });
+
+  const save = (blob, name = 'image.png') => {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.target = '_blank';
+    a.download = name;
+    a.click();
   };
 
   const randObjId = () => {
@@ -130,11 +161,12 @@ cshr(() => {
     fetchImage(requestJSON);
   });
 
-  // loading.removeClass("hidden");
-  // requestJSON = request(currentObjId);
-  // fetchImage(requestJSON).then(() => {
-  //   const pinNode = generatePinItem();
-  // });
-
+  downloadAllButton.on("click", () => {
+    const pinnedItems = cshr('.pinned-image');
+    pinnedItems.children().nodeCollection.forEach(img => {
+      console.log(img.src);
+      download(img.src);
+    })
+  })
 
 });

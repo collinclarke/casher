@@ -123,16 +123,6 @@ img {
   z-index: 5;
 }
 
-#pin-button {
-  position: absolute;
-  color: red;
-  top: -3rem;
-  right: 11vw;
-  font-size: 10rem;
-  cursor: pointer;
-  z-index: 600;
-}
-
 #random-button {
   position: absolute;
   color: red;
@@ -160,6 +150,27 @@ img {
   overflow-y: auto;
   margin: 0;
   padding: 0;
+}
+
+#download-all-button {
+  position: absolute;
+  color: red;
+  text-align: left;
+  top: 1vh;
+  right: 12vw;
+  font-size: 5rem;
+  cursor: pointer;
+  z-index: 800;
+}
+
+#pin-button {
+  position: absolute;
+  color: red;
+  bottom: 5vh;
+  right: 10vw;
+  font-size: 10rem;
+  cursor: pointer;
+  z-index: 600;
 }
 
 #pins {
